@@ -3,7 +3,7 @@ from pydub import AudioSegment
 import whisperx
 
 # Specify the path to the local cloned model
-local_model_path = "./whisper-base-ar-quran"
+local_model_path = "../whisper-base-ar-quran"
 
 # Initialize the pipeline with the local model and disable timestamps
 pipe = pipeline("automatic-speech-recognition", model=local_model_path, return_timestamps=False)

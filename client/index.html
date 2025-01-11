@@ -25,21 +25,20 @@
             margin-top: 20px;
         }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 <body>
     <h1>Quran EYA Pronunciation Checker</h1>
     <h2 id="arabic-text">الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ</h2>
 
-    <div class="buttons">
-        <button id="startBtn">Start Recording</button>
-        <button id="stopBtn" disabled>Stop Recording</button>
-    </div>
+    <form onsubmit="handleSubmit(event)" class="buttons">
+        <button onclick="handleStart()" type="button" id="startBtn">Start Recording</button>
+        <button onclick="handleStop()" type="button" id="stopBtn" disabled>Stop Recording</button>
+    </form>
 
     <div id="audioContainer" class="audio-player"></div> <!-- Container for the audio player -->
 
-    <script src="script.js"></script>
+    <script defer src="script.js"></script>
 </body>
 
 </html>

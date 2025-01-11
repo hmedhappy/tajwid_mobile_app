@@ -5,10 +5,15 @@ from transformers import pipeline
 import os
 
 app = Flask(__name__)
-app.config['MAX_CONTENT_LENGTH'] = 50 * 1024 * 1024  # Allow 50MB uploads
 
 CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
 
+@app.after_request
+def after_request(response):
+  response.headers.add('Access-Control-Allow-Origin', '*')  # Or specify a specific origin like 'http://localhost:3000'
+  response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+  response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+  return response
 
 # Initialize ASR pipeline
 model_path = "./whisper-base-ar-quran"  # Replace with your model path
@@ -36,12 +41,18 @@ def compare_transcriptions(original, transcribed):
             scores.append("RED")
     return scores
 
+@app.route("/", methods=["GET"])
+def welcome():
+    return jsonify({"message": "Welcome to the Quran Audio Transcription Service!"})
+
 
 @app.route("/process_audio", methods=["POST"])
 def process_audio():
     print('Processing API')
     if "audio" not in request.files:
-        return jsonify({"error": "No audio file uploaded"}), 400
+        error_message = f"No audio file uploaded. Files received: {len(request.files)}"
+        print(error_message)  # Log the error message
+        return jsonify({"error": error_message})
 
     audio_file = request.files["audio"]
     audio_path = "uploaded_audio.wav"
