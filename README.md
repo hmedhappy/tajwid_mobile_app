@@ -27,8 +27,19 @@ pip install transformers pydub speechrecognition pyaudio pynput Flask flask-cors
 Ensure that you have the Whisper model available locally or specify the correct path in the script. The model can be downloaded from Hugging Face and saved to a directory.
 
 ```bash
-git clone https://huggingface.co/openai/whisper-base-ar-quran
+git clone https://huggingface.co/tarteel-ai/whisper-base-ar-quran
 ```
+
+## Usage
+### Launch Server
+
+```bash
+python server/audio-transcriber-server.py
+```
+
+### Launch Client
+
+Open the `client/index.html`
 
 ### Files Overview
 
@@ -37,7 +48,6 @@ git clone https://huggingface.co/openai/whisper-base-ar-quran
 3. **audio-stream-transcriber.py**: Streams and records audio, transcribes it in real-time, and compares the transcription with the original text.
 4. **audio-transcriber-server.py**: A Flask-based server for uploading audio files, processing them, and returning the transcriptions along with comparison results.
 
-## Usage
 
 ### Transcribing and Comparing Audio
 
