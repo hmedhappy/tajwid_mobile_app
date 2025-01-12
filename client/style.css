@@ -1,0 +1,153 @@
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.rainbow {
+    position: relative;
+    z-index: 0;
+    width: 400px;
+    height: auto;
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+.rainbow::before {
+    content: '';
+    position: absolute;
+    z-index: -2;
+    left: -50%;
+    top: -50%;
+    width: 200%;
+    height: 200%;
+    background-color: #399953;
+    background-repeat: no-repeat;
+    background-size: 50% 50%, 50% 50%;
+    background-position: 0 0, 100% 0, 100% 100%, 0 100%;
+    background-image: linear-gradient(#399953, #399953), linear-gradient(#fbb300, #fbb300), linear-gradient(#d53e33, #d53e33), linear-gradient(#377af5, #377af5);
+}
+
+.rainbow::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    left: 6px;
+    top: 6px;
+    width: calc(100% - 12px);
+    height: calc(100% - 12px);
+    background: white;
+    border-radius: 5px;
+}
+
+.frame {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    color: #721c24;
+}
+
+.transcription {
+    margin-top: 20px;
+    padding: 20px;
+    border: 5px solid #28a745;
+    /* Darker green border */
+    border-radius: 10px;
+    background-color: #d4edda;
+    /* Light green background */
+    color: #155724;
+    /* Darker text color */
+}
+
+.buttons {
+    margin-top: 20px;
+}
+
+
+
+@keyframes rotate {
+    100% {
+        transform: rotate(1turn);
+    }
+}
+
+/* Rainbow animation when server request is triggered */
+.rainbow.animate::before {
+    animation: rotate 4s linear infinite;
+}
+
+/* Recorder animation when recording starts */
+.rainbow.recording {
+    box-shadow: 0 0 30px 5px rgba(255, 0, 0, 0.7);
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 10px 5px rgba(255, 0, 0, 0.7);
+    }
+
+    50% {
+        box-shadow: 0 0 30px 10px rgba(255, 0, 0, 0.4);
+    }
+
+    100% {
+        box-shadow: 0 0 10px 5px rgba(255, 0, 0, 0.7);
+    }
+}
+
+
+
+/* Style for the audio player container */
+.audio-player {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Style for the play/pause button */
+#playPauseBtn {
+    width: 35px;
+    height: 35px;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Style for the play/pause icon */
+#playPauseIcon {
+    font-size: 16px;
+    color: #fff;
+    
+}
+
+/* Change background color when the button is active */
+#playPauseBtn:active {
+    background-color: #2980b9;
+}

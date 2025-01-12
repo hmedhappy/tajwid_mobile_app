@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, send_from_directory, jsonify
 from flask_cors import CORS
 
 from transformers import pipeline
@@ -45,6 +45,35 @@ def compare_transcriptions(original, transcribed):
 def welcome():
     return jsonify({"message": "Welcome to the Quran Audio Transcription Service!"})
 
+# Route to serve the file
+@app.route('/get-transcripts', methods=['GET'])
+def get_transcripts():
+    try:
+        # Replace 'public' with the folder where your transcripts.tsv is located
+        return send_from_directory(directory='public', path='transcripts.json', as_attachment=False)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/get-eya-audio/<id>', methods=['GET'])
+def get_audio(id):
+    try:
+        # Define the folder where the audio files are located
+        audio_folder = '/Users/ahmedferah/Downloads/QURAN/Quran_Speech_Dataset/audio_data/AbdulSamad'
+        
+        # Create the path to the audio file using the provided 'id'
+        audio_file = f'{id}.mp3'
+        audio_path = os.path.join(audio_folder, audio_file)
+        
+        # Check if the audio file exists
+        if not os.path.exists(audio_path):
+            return jsonify({"error": f"File {audio_file} not found"}), 404
+        
+        # If the file exists, send it as a response
+        return send_from_directory(directory=audio_folder, path=audio_file, as_attachment=False)
+    
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 
 @app.route("/process_audio", methods=["POST"])
 def process_audio():
@@ -55,6 +84,7 @@ def process_audio():
         return jsonify({"error": error_message})
 
     audio_file = request.files["audio"]
+    original_text = request.form['original_text']
     audio_path = "uploaded_audio.wav"
     audio_file.save(audio_path)
 

@@ -1,2 +1,4 @@
 deepspeech_approach
 deepspeech_approach.*
+
+server/public/transcripts.json

@@ -5,31 +5,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Audio Recorder</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 20px;
-        }
-
-        h1,
-        h2 {
-            margin-bottom: 20px;
-        }
-
-        .buttons {
-            margin-top: 20px;
-        }
-
-        .audio-player {
-            margin-top: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
-    <h1>Quran EYA Pronunciation Checker</h1>
-    <h2 id="arabic-text">الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ</h2>
+<body onload="load_ayat()">
+
+    <div>
+        <label for="surah-select">Surah</label>
+        <select id="surah-select" onchange="populateAyat()">
+            <!-- Surah options will be populated dynamically -->
+        </select>
+
+        <label for="ayah-select">Ayah</label>
+        <select id="ayah-select">
+            <!-- Ayah options will be populated dynamically -->
+        </select>
+    </div>
+    <h1>Quran Pronunciation Checker</h1>
+
+    <!-- Main Text Frame with Rainbow Animation -->
+    <div class="rainbow" id="main-text-container">
+        <div class="frame">
+            <h2 id="arabic-text">الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ</h2>
+        </div>
+        <div id="audioContainer" class="audio-player">
+            <audio id="audio" src="http://localhost:5600/get-eya-audio/001001"></audio>
+            <button id="playPauseBtn" onclick="togglePlayPause()">
+                <svg id="playPauseIcon" class="play-icon" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" height="35px" width="35px" version="1.1" id="Layer_1"
+                    viewBox="0 0 512 512" xml:space="preserve">
+                    <g>
+                        <path style="fill:#41965B;"
+                            d="M512,256c0,141.383-114.617,256-256,256S0,397.383,0,256S114.617,0,256,0S512,114.617,512,256" />
+                        <g>
+                            <path style="fill:#FFFFFF;"
+                                d="M335.448,326.621c-4.882,0-8.828-3.946-8.828-8.828V194.207c0-4.882,3.946-8.828,8.828-8.828    c4.882,0,8.828,3.946,8.828,8.828v123.586C344.276,322.675,340.33,326.621,335.448,326.621" />
+                            <path style="fill:#FFFFFF;"
+                                d="M388.414,326.621c-4.882,0-8.828-3.946-8.828-8.828V194.207c0-4.882,3.946-8.828,8.828-8.828    c4.882,0,8.828,3.946,8.828,8.828v123.586C397.241,322.675,393.295,326.621,388.414,326.621" />
+                            <path style="fill:#FFFFFF;"
+                                d="M220.681,326.621c-1.483,0-2.993-0.371-4.37-1.165c-4.237-2.419-5.711-7.812-3.284-12.041    l70.621-123.586c2.41-4.237,7.804-5.738,12.041-3.284c4.237,2.419,5.711,7.812,3.284,12.041l-70.621,123.586    C226.728,325.023,223.753,326.621,220.681,326.621" />
+                            <polygon style="fill:#FFFFFF;" points="203.034,256 97.103,317.793 97.103,194.207   " />
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Transcription Text Frame -->
+    <div class="frame transcription">
+        <h2 id="transcription-text">Translation or transcription will appear here.</h2>
+    </div>
 
     <form onsubmit="handleSubmit(event)" class="buttons">
         <button onclick="handleStart()" type="button" id="startBtn">Start Recording</button>
